@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>org.Naer</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>cloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
     <description>demo</description>

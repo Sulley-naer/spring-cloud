@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.Naer</groupId>
-        <artifactId>demo</artifactId>
+        <artifactId>cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -56,6 +56,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>5.0.0-M1</version>
+        </dependency>
+        <!-- maven Bug 未继承父类 模块确少依赖 -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
