@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu Jul 31 11:39:07 CST 2025:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0198-5e8f-ec5e-000006308330 
+on database directory D:\小米云盘\桌面\JAVA\Soft\nacos\data\derby-data with class loader org.springframework.boot.loader.launch.LaunchedClassLoader@2b71fc7e 
+Loaded from jar:nested:/D:/小米云盘/桌面/JAVA/Soft/nacos/target/nacos-server.jar/!BOOT-INF/lib/derby-10.14.2.0.jar!/
+java.vendor=BellSoft
+java.runtime.version=17.0.13+12-LTS
+user.dir=D:\小米云盘\桌面\JAVA\cloud
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

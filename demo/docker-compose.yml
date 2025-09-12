@@ -1,0 +1,87 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:9.4
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: cloud_db
+      MYSQL_USER: cloud_user
+      MYSQL_PASSWORD: cloud_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - cloud-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  nacos-db-init:
+    image: mysql:9.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      NACOS_VERSION: v3.0.3
+    volumes:
+      - ./mysql/init/init-nacos-db.sh:/init-nacos-db.sh
+      - ./mysql/init:/project-init-scripts
+    command: /bin/bash /init-nacos-db.sh
+    networks:
+      - cloud-network
+    depends_on:
+      - mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis-cache
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass redis123
+    networks:
+      - cloud-network
+
+  nacos:
+    image: nacos/nacos-server:latest
+    container_name: nacos-server
+    environment:
+      MODE: standalone
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: mysql
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_DB_NAME: nacos_config
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root123
+      NACOS_AUTH_ENABLE: true
+      NACOS_AUTH_TOKEN: SecretKey012345678901234567890123456789012345678901234567890123456789
+      NACOS_AUTH_IDENTITY_KEY: nacos
+      NACOS_AUTH_IDENTITY_VALUE: nacos
+    ports:
+      - "8848:8848"
+      - "8080:8080"
+      - "9848:9848"
+      - "9849:9849"
+    volumes:
+      - nacos_data:/home/nacos/data
+      - nacos_logs:/home/nacos/logs
+    depends_on:
+      - nacos-db-init
+    networks:
+      - cloud-network
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  nacos_data:
+    driver: local
+  nacos_logs:
+    driver: local
+
+networks:
+  cloud-network:
+    driver: bridge

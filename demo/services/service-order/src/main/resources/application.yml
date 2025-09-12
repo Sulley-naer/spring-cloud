@@ -1,0 +1,24 @@
+# 配置中心
+spring:
+  application:
+    name: order_service
+  profiles:
+    active: public # 激活的环境
+
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        username: nacos
+        password: nacos
+        file-extension: properties
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        username: nacos
+        password: nacos
+
+  config:
+    import:
+      - nacos:common.properties?group=order
