@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 // 自动刷新无需配置注解
-@ConfigurationProperties(prefix = "order")
+@ConfigurationProperties(prefix = "")
 public class orderProperties {
     //对应配置文件中 order.name
     String name;

@@ -1,6 +1,7 @@
 package com.Near.order.controller;
 
 import com.Near.order.Properties.orderProperties;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import orders.order;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,14 @@ public class main {
         log.info(orderProperties.getName());
     }
 
+    @Resource
+    orderProperties properties;
+
     @GetMapping("/order/{id}")
     public order getOrder(@PathVariable String id) {
         order order = new order();
         order.setOrderId(Long.parseLong(id));
-        order.setDescription("11111");
+        order.setDescription(properties.getName() + "11111");
         return order;
     }
 }

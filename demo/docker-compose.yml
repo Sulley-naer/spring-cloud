@@ -14,6 +14,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./inits/db:/docker-entrypoint-initdb.d
     networks:
       - cloud-network
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -22,10 +23,11 @@ services:
     image: mysql:9.4
     environment:
       MYSQL_ROOT_PASSWORD: root123
-      NACOS_VERSION: v3.0.3
+      NACOS_VERSION: latest
     volumes:
-      - ./mysql/init/init-nacos-db.sh:/init-nacos-db.sh
-      - ./mysql/init:/project-init-scripts
+      - ./inits/script/init-nacos-db.sh:/init-nacos-db.sh
+      - ./inits/db:/project-init-scripts
+      - ./inits/db:/docker-entrypoint-initdb.d
     command: /bin/bash /init-nacos-db.sh
     networks:
       - cloud-network
@@ -59,16 +61,20 @@ services:
       NACOS_AUTH_TOKEN: SecretKey012345678901234567890123456789012345678901234567890123456789
       NACOS_AUTH_IDENTITY_KEY: nacos
       NACOS_AUTH_IDENTITY_VALUE: nacos
+      NACOS_CONFIG_GRAY_MIGRATE: "false"
+      NACOS_CORE_API_COMPATIBILITY_CONSOLE_ENABLED: "true"
     ports:
       - "8848:8848"
-      - "8080:8080"
       - "9848:9848"
       - "9849:9849"
+      - "8080:8080"
     volumes:
       - nacos_data:/home/nacos/data
       - nacos_logs:/home/nacos/logs
     depends_on:
       - nacos-db-init
+      - mysql
+    restart: always
     networks:
       - cloud-network
 

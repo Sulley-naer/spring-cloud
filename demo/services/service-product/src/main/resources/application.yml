@@ -7,7 +7,7 @@ nacos:
 
 spring:
   application:
-    name: order-service
+    name: product-service
   profiles:
     active: ${nacos.namespace} # 激活的环境
 
@@ -27,5 +27,5 @@ spring:
 
   config:
     import:
-      - nacos:common.properties?group=DEFAULT_GROUP
+      - nacos:common.properties
       - nacos:${spring.application.name}.properties?group=${spring.application.name}
