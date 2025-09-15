@@ -1,6 +1,6 @@
 package com.near.product;
 
-import com.near.product.feign.orderFeignClient;
+import com.near.product.feign.OrderFeignClient;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class feignTest {
 
     @Resource
-    orderFeignClient orderFeignClient;
+    OrderFeignClient orderFeignClient;
 
     @Test
     public void orderTest() {

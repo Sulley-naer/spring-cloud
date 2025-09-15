@@ -27,7 +27,6 @@ services:
     volumes:
       - ./inits/script/init-nacos-db.sh:/init-nacos-db.sh
       - ./inits/db:/project-init-scripts
-      - ./inits/db:/docker-entrypoint-initdb.d
     command: /bin/bash /init-nacos-db.sh
     networks:
       - cloud-network

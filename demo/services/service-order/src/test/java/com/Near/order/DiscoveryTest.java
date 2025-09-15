@@ -1,6 +1,6 @@
 package com.Near.order;
 
-import com.Near.order.Properties.orderProperties;
+import com.Near.order.Properties.OrderProperties;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -19,14 +19,14 @@ public class DiscoveryTest {
     DiscoveryClient discovery;
 
     @Resource
-    orderProperties orderProperties;
+    OrderProperties orderProperties;
 
     @Test
     @RefreshScope
     public void FinderTest() {
-        log.info("orderProperties object: {}", orderProperties);
-        log.info("orderProperties.getName(): {}", orderProperties.getName());
-        log.info("orderProperties.getKfz(): {}", orderProperties.getKfz());
+        log.info("OrderProperties object: {}", orderProperties);
+        log.info("OrderProperties.getName(): {}", orderProperties.getName());
+        log.info("OrderProperties.getKfz(): {}", orderProperties.getKfz());
     }
 
     @Test

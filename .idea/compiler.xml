@@ -17,35 +17,16 @@
         </processorPath>
         <module name="model1" />
       </profile>
-      <profile name="Annotation profile for model" enabled="true">
+      <profile name="Annotation profile for cloud" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
-        <module name="model" />
-      </profile>
-      <profile name="Annotation profile for service-order" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
           <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="service-order" />
-      </profile>
-      <profile name="Annotation profile for service-product" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
         <module name="service-product" />
+        <module name="model" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

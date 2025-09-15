@@ -10,6 +10,7 @@ spring:
     name: order-service
   profiles:
     active: ${nacos.namespace} # 激活的环境
+    include: feign
 
   cloud:
     nacos:

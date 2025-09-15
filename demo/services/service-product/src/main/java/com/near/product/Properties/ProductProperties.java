@@ -1,4 +1,4 @@
-package com.Near.order.Properties;
+package com.near.product.Properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 // 自动刷新无需配置注解
 @ConfigurationProperties(prefix = "")
-public class orderProperties {
+public class ProductProperties {
     //对应配置文件中 order.name
     String name;
     String kfz;
