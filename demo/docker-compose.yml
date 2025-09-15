@@ -77,6 +77,16 @@ services:
     networks:
       - cloud-network
 
+  sentinel:
+    build: ./Sentinel
+    container_name: sentinel-dashboard
+    ports:
+      - "8888:8080"
+    networks:
+      - cloud-network
+    depends_on:
+      - nacos
+
 volumes:
   mysql_data:
     driver: local
