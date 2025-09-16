@@ -28,7 +28,6 @@ spring:
       transport:
         dashboard: localhost:8888
       eager: true # 项目重启时连接而非首次请求
-      web-context-unify: false # 分割资源上下文
 # sentinel
 
 feign:

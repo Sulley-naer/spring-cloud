@@ -86,6 +86,7 @@ services:
       - cloud-network
     depends_on:
       - nacos
+    restart: always
 
 volumes:
   mysql_data:
