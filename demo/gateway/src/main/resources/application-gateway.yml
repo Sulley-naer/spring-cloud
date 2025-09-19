@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: order-route
+          # 服务地址
+          uri: lb://order-service
+          # 匹配器
+          predicates:
+            - Path=/api/order/**
+            - Path=/api/order/
+          order: 0
+        - id: product-route
+          uri: lb://product-service
+          predicates:
+            - name: Path
+              args:
+                patterns:
+                  - /api/product/**
+                  - /api/product/
+                matchTrailingSlash: true

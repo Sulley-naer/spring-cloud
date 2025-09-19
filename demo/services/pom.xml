@@ -21,6 +21,7 @@
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <nacos.versing>2023.0.3.3</nacos.versing>
     </properties>
 
     <dependencies>
@@ -29,6 +30,12 @@
             <groupId>org.Naer</groupId>
             <artifactId>model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.4</version>
         </dependency>
 
         <!-- MySQL数据库依赖 -->
@@ -47,8 +54,14 @@
         <!-- nacos config -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>${nacos.versing}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>2023.0.3.3</version>
+            <version>${nacos.versing}</version>
         </dependency>
 
         <!-- OpenFeign 远程调用 -->
@@ -70,5 +83,4 @@
             <version>2023.0.3.3</version>
         </dependency>
     </dependencies>
-
 </project>

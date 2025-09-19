@@ -24,18 +24,10 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
+        <module name="model" />
         <module name="service-order" />
         <module name="service-product" />
-      </profile>
-      <profile name="Annotation profile for model" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
-        <module name="model" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -48,6 +40,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cloud" options="" />
       <module name="demo" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="model1" options="-parameters" />
       <module name="scrvices-order" options="-parameters" />
