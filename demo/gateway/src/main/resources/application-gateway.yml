@@ -1,6 +1,13 @@
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-headers: '*'
+            allowed-methods: '*'
+            allowed-origins: '*'
       routes:
         - id: order-route
           # 服务地址
@@ -8,8 +15,8 @@ spring:
           # 匹配器
           predicates:
             - Path=/api/order/**
-            - Path=/api/order/
-          order: 0
+          filters:
+            - RewritePath=/api/order/?(?<segment>.*), /$\{segment}
         - id: product-route
           uri: lb://product-service
           predicates:
@@ -17,5 +24,9 @@ spring:
               args:
                 patterns:
                   - /api/product/**
-                  - /api/product/
                 matchTrailingSlash: true
+          filters:
+            - RewritePath=/api/product/?(?<segment>.*), /$\{segment}
+      default-filters:
+        - AddResponseHeader=X-Server-Request, Java
+        # - RewritePath=/api/?(?<segment>.*), /$\{segment}
