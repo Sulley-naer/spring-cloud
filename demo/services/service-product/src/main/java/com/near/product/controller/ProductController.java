@@ -1,7 +1,9 @@
 package com.near.product.controller;
 
-import Product.good;
+import Product.Product;
+import com.near.product.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,15 +14,20 @@ import java.math.BigDecimal;
 @RestController
 public class ProductController {
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/Product/{id}")
-    public good get(@PathVariable String id) {
-        good good = new good();
-        good.setId(Long.parseLong(id));
-        good.setName("苹果");
-        good.setPrice(BigDecimal.valueOf(123.456));
-        good.setDescription("新鲜苹果");
-        good.setStock(100);
-        // TimeUnit.SECONDS.sleep(61);
-        return good;
+    public Product get(@PathVariable String id) {
+        Product product = productService.findById(Long.parseLong(id));
+        if (product == null) {
+            product = new Product();
+            product.setId(Long.parseLong(id));
+            product.setName("苹果");
+            product.setPrice(BigDecimal.valueOf(123.456));
+            product.setDescription("新鲜苹果");
+            product.setStock(100);
+        }
+        return product;
     }
 }

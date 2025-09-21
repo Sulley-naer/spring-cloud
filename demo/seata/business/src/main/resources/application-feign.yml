@@ -1,0 +1,36 @@
+logging:
+  level:
+    com.Near.order.feign: DEBUG
+
+spring:
+  cloud:
+    openfeign:
+      # 全局拦截器配置
+      httpclient:
+        connection-timeout: 2000
+        ok-http:
+          read-timeout: 60s
+      client:
+        # 这个是服务请求配置，而不是别人连此服务的配置
+        config:
+          # 默认配置 对所有的请求的配置 axios的默认配置
+          default:
+            logger-level: basic
+          # 服务单独配置 判断请求地址
+          product-service:
+            logger-level: full
+            # 10s没连接就异常
+            connect-timeout: 1000
+            # 5s没返回就异常
+            read-timeout: 5000
+            # retryer: feign.Retryer.Default
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+      eager: true # 项目重启时连接而非首次请求
+      web-context-unify: false # 分割资源上下文
+# sentinel
+
+feign:
+  sentinel:
+    enabled: true

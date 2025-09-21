@@ -1,19 +1,20 @@
 package com.Near.order.controller;
 
 import com.Near.order.Properties.OrderProperties;
-import com.Near.order.common.Response.Success;
 import com.Near.order.feign.ProductFeignClient;
-import com.Near.order.mapper.OrdersMapper;
+import com.Near.order.services.OrderService;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import common.Response.Success;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import orders.order;
+import orders.Orders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +23,10 @@ import java.util.Map;
 public class OrderController {
 
     @Resource
-    ProductFeignClient productFeignClient;
+    private OrderService orderService;
 
     @Resource
-    OrdersMapper ordersMapper;
+    ProductFeignClient productFeignClient;
 
     @Resource
     OrderProperties properties;
@@ -35,18 +36,20 @@ public class OrderController {
     public ResponseEntity<Object> CreateOrder(@PathVariable int id) {
         // 创建一个 Map 来存储数据
         Map<String, Object> responseData = new HashMap<>();
-        // 创建订单对象
-        order order = new order();
-        order.setId((long) id);
-        order.setProductName("Sample Product");
-        order.setQuantity(1);
-        order.setPrice(java.math.BigDecimal.valueOf(99.99));
+        // 获取订单信息
+        Orders order = orderService.findById(Long.valueOf(id));
+        if (order == null) {
+            order = new Orders();
+            order.setId((long) id);
+            order.setUserId(1L);
+            order.setProductName("Sample Product");
+            order.setQuantity(1);
+            order.setPrice(BigDecimal.valueOf(99.99));
+        }
         // 将这两个对象放入 Map 中
         responseData.put("order", order);
-        responseData.put("product", productFeignClient.getProduct(id));
+        responseData.put("product", productFeignClient.getProduct(3));
         // 返回封装好的 responseData
-        /*order.setUserId(6L);
-        ordersMapper.insert(order);*/
         return ResponseEntity.ok(new Success(responseData));
     }
 

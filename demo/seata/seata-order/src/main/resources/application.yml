@@ -1,0 +1,35 @@
+# 配置中心
+nacos:
+  server: 127.0.0.1:8848
+  username: nacos
+  password: nacos
+  namespace: dev
+
+spring:
+  application:
+    name: seata-order-service
+  profiles:
+    active: ${nacos.namespace}
+
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.server}
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+        file-extension: properties
+      discovery:
+        server-addr: ${nacos.server}
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+
+  config:
+    import:
+      - optional:nacos:common.properties?group=DEFAULT_GROUP
+      - optional:nacos:${spring.application.name}.properties?group=${spring.application.name}
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
