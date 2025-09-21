@@ -1,14 +1,18 @@
 package org.Naer.business.feign;
 
 import Product.Product;
-import org.Naer.business.feign.fallback.OrderFallback;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "seata-product-service", path = "", fallback = OrderFallback.class)
+@FeignClient(name = "seata-product-service", path = "/products")
 public interface ProductFeignClient {
+
+    @GetMapping("/{id}")
+    Product getProductById(@PathVariable("id") Long id);
 
     @PostMapping
     Product createProduct(@RequestBody Product product);
+
+    @PutMapping("/{id}")
+    Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product);
 }

@@ -13,12 +13,13 @@ import java.sql.Timestamp;
 public class Orders {
     private Long id;
     private Long userId;
+    private Long productId;
     private String productName;
     private Integer quantity;
     private BigDecimal price;
     private Timestamp createdAt;
 
-    public Orders(boolean orderId) {
+    public Orders(long orderId) {
         this.id = orderId;
     }
 }

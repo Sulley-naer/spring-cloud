@@ -2,7 +2,9 @@ package org.Naer.business.feign.fallback;
 
 import orders.Orders;
 import org.Naer.business.feign.OrderFeignClient;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderFallback implements OrderFeignClient {
     @Override
     public Orders createOrder(Orders order) {
