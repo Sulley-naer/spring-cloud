@@ -1,0 +1,32 @@
+# 配置中心
+nacos:
+  server: 127.0.0.1:8848
+  username: nacos
+  password: nacos
+  namespace: dev
+
+spring:
+  application:
+    name: seata-business-service
+  profiles:
+    active: ${nacos.namespace} # 激活的环境
+    include: feign
+
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.server}
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+        file-extension: properties
+      discovery:
+        server-addr: ${nacos.server}
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+
+  config:
+    import:
+      - nacos:common.properties?group=DEFAULT_GROUP
+      - nacos:${spring.application.name}.properties?group=${spring.application.name}

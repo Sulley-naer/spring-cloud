@@ -11,16 +11,15 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/Seata/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/Seata/seata-product/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/seata/seata-product/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/demo/model1/pom.xml" />
-        <option value="$PROJECT_DIR$/demo/scevices/pom.xml" />
-        <option value="$PROJECT_DIR$/demo/services/service/pom.xml" />
-        <option value="$PROJECT_DIR$/services/pom.xml" />
-        <option value="$PROJECT_DIR$/services/scrvices-order/pom.xml" />
-        <option value="$PROJECT_DIR$/services/scrvices-product/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/Seata/pom.xml" />
+        <option value="$PROJECT_DIR$/demo/Seata/seata-order/pom.xml" />
       </set>
     </option>
   </component>

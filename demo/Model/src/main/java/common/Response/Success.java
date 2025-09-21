@@ -1,4 +1,4 @@
-package com.Near.order.common.Response;
+package common.Response;
 
 import lombok.Data;
 

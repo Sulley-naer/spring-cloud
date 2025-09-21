@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class order {
+public class Orders {
     private Long id;
     private Long userId;
     private String productName;
@@ -18,7 +18,7 @@ public class order {
     private BigDecimal price;
     private Timestamp createdAt;
 
-    public order(long orderId) {
+    public Orders(boolean orderId) {
         this.id = orderId;
     }
 }

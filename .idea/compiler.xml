@@ -24,20 +24,25 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
+        <module name="business" />
+        <module name="service-product" />
+        <module name="seata-order" />
         <module name="model" />
         <module name="service-order" />
-        <module name="service-product" />
         <module name="gateway" />
+        <module name="seata-product" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cloud" target="1.5" />
       <module name="scrvices-order" target="17" />
       <module name="scrvices-product" target="17" />
+      <module name="service-order (1)" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="business" options="-parameters" />
       <module name="cloud" options="" />
       <module name="demo" options="-parameters" />
       <module name="gateway" options="-parameters" />
@@ -45,7 +50,11 @@
       <module name="model1" options="-parameters" />
       <module name="scrvices-order" options="-parameters" />
       <module name="scrvices-product" options="-parameters" />
+      <module name="seata" options="-parameters" />
+      <module name="seata-order" options="-parameters" />
+      <module name="seata-product" options="-parameters" />
       <module name="service-order" options="-parameters" />
+      <module name="service-order (1)" options="-parameters" />
       <module name="service-product" options="-parameters" />
       <module name="services" options="-parameters" />
     </option>
