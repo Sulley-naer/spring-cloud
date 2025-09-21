@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @Slf4j
 @RestController
 public class ProductController {
@@ -15,8 +17,10 @@ public class ProductController {
         good good = new good();
         good.setId(Long.parseLong(id));
         good.setName("苹果");
-        good.setPrice(123.456);
-//        TimeUnit.SECONDS.sleep(61);
+        good.setPrice(BigDecimal.valueOf(123.456));
+        good.setDescription("新鲜苹果");
+        good.setStock(100);
+        // TimeUnit.SECONDS.sleep(61);
         return good;
     }
 }

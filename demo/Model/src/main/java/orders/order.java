@@ -2,18 +2,23 @@ package orders;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class order {
-    private long orderId;
-    private String description;
-    private List<Object> items;
+    private Long id;
+    private Long userId;
+    private String productName;
+    private Integer quantity;
+    private BigDecimal price;
+    private Timestamp createdAt;
 
-    public order(long orderId, String description) {
-        this.orderId = orderId;
-        this.description = description;
+    public order(long orderId) {
+        this.id = orderId;
     }
 }

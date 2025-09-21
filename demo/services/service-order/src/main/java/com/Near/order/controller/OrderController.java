@@ -3,6 +3,7 @@ package com.Near.order.controller;
 import com.Near.order.Properties.OrderProperties;
 import com.Near.order.common.Response.Success;
 import com.Near.order.feign.ProductFeignClient;
+import com.Near.order.mapper.OrdersMapper;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import jakarta.annotation.Resource;
@@ -24,6 +25,9 @@ public class OrderController {
     ProductFeignClient productFeignClient;
 
     @Resource
+    OrdersMapper ordersMapper;
+
+    @Resource
     OrderProperties properties;
 
     @SentinelResource(value = "CreateOrder", blockHandler = "CreateOrderFallback")
@@ -31,10 +35,18 @@ public class OrderController {
     public ResponseEntity<Object> CreateOrder(@PathVariable int id) {
         // 创建一个 Map 来存储数据
         Map<String, Object> responseData = new HashMap<>();
+        // 创建订单对象
+        order order = new order();
+        order.setId((long) id);
+        order.setProductName("Sample Product");
+        order.setQuantity(1);
+        order.setPrice(java.math.BigDecimal.valueOf(99.99));
         // 将这两个对象放入 Map 中
-        responseData.put("order", new order(id, properties.getName()));
-        responseData.put("product", productFeignClient.getProduct(3));
+        responseData.put("order", order);
+        responseData.put("product", productFeignClient.getProduct(id));
         // 返回封装好的 responseData
+        /*order.setUserId(6L);
+        ordersMapper.insert(order);*/
         return ResponseEntity.ok(new Success(responseData));
     }
 

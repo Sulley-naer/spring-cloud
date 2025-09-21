@@ -14,7 +14,8 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./inits/db:/docker-entrypoint-initdb.d
+    # 使用 init 脚本初始化数据库,而不是默认文件夹方式
+    # - ./inits/db:/docker-entrypoint-initdb.d
     networks:
       - cloud-network
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

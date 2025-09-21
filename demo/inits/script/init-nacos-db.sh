@@ -2,7 +2,7 @@
 
 # 等待MySQL服务启动完成
 until mysql -h mysql -u root -proot123 -e "SELECT 1"; do
-  >&2 echo "MySQL is unavailable - sleeping"
+  echo "MySQL is unavailable - sleeping"
   sleep 5
 done
 
