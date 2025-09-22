@@ -41,4 +41,4 @@ CREATE TABLE IF NOT EXISTS products
     stock       INT            NOT NULL DEFAULT 0,
     created_at  TIMESTAMP               DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);@
+);

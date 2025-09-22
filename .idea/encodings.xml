@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/demo/Model" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/Model/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo/nacos/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/seata/business/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/seata/seata-order/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/demo/seata/seata-product/src/main/java" charset="UTF-8" />

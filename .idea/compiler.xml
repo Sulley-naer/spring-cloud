@@ -30,6 +30,7 @@
         <module name="model" />
         <module name="service-order" />
         <module name="gateway" />
+        <module name="nacos" />
         <module name="seata-product" />
       </profile>
     </annotationProcessing>
@@ -48,6 +49,7 @@
       <module name="gateway" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="model1" options="-parameters" />
+      <module name="nacos" options="-parameters" />
       <module name="scrvices-order" options="-parameters" />
       <module name="scrvices-product" options="-parameters" />
       <module name="seata" options="-parameters" />

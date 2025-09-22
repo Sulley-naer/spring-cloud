@@ -45,6 +45,9 @@ public class BusinessService {
         newOrder.setQuantity(1);
         newOrder.setPrice(product.getPrice());
 
+        // 模拟异常
+        int i = 10 / 0;
+
         return orderService.createOrder(newOrder);
     }
 }

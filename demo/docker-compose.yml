@@ -20,19 +20,21 @@ services:
       - cloud-network
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-  nacos-db-init:
-    image: mysql:9.4
+  db-init:
+    image: mysql:9.4   # 还是用 MySQL 镜像跑初始化脚本
     environment:
       MYSQL_ROOT_PASSWORD: root123
-      NACOS_VERSION: latest
+      NACOS_VERSION: master   # 默认 master 对应 github 分支的名称
+      SEATA_VERSION: 2.x      # 默认 2.x 分支 对应 github 分支的名称
     volumes:
-      - ./inits/script/init-nacos-db.sh:/init-nacos-db.sh
-      - ./inits/db:/project-init-scripts
-    command: /bin/bash /init-nacos-db.sh
+      - ./inits/script/init-db.sh:/init-db.sh      # 改脚本名更通用
+      - ./inits/db:/project-init-scripts           # 里面可以放 nacos-mysql.sql / seata-mysql.sql
+    command: /bin/bash /init-db.sh
     networks:
       - cloud-network
     depends_on:
       - mysql
+
 
   redis:
     image: redis:7-alpine
@@ -55,8 +57,8 @@ services:
       MYSQL_SERVICE_HOST: mysql
       MYSQL_SERVICE_PORT: 3306
       MYSQL_SERVICE_DB_NAME: nacos_config
-      MYSQL_SERVICE_USER: root
-      MYSQL_SERVICE_PASSWORD: root123
+      MYSQL_SERVICE_USER: nacos
+      MYSQL_SERVICE_PASSWORD: nacos
       NACOS_AUTH_ENABLE: true
       NACOS_AUTH_TOKEN: SecretKey012345678901234567890123456789012345678901234567890123456789
       NACOS_AUTH_IDENTITY_KEY: nacos
@@ -71,8 +73,9 @@ services:
     volumes:
       - nacos_data:/home/nacos/data
       - nacos_logs:/home/nacos/logs
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
     depends_on:
-      - nacos-db-init
+      - db-init
       - mysql
     restart: always
     networks:
@@ -88,6 +91,28 @@ services:
     depends_on:
       - nacos
     restart: always
+
+  seata:
+    image: seataio/seata-server:2.0.0
+    container_name: seata-server
+    ports:
+      - "8091:8091"
+      - "7091:7091"
+    environment:
+      SEATA_PORT: 8091
+      STORE_MODE: db
+      SERVER_NODE: 1
+      SEATA_CONFIG_NAME: file:/seata-server/resources/file.conf
+      logging.file.path: /root/logs/seata
+    volumes:
+      - ./seata/resources:/seata-server/resources
+    networks:
+      - cloud-network
+    depends_on:
+      - mysql
+      - nacos
+    restart: always
+
 
 volumes:
   mysql_data:
