@@ -96,23 +96,17 @@ services:
     image: seataio/seata-server:2.0.0
     container_name: seata-server
     ports:
-      - "8091:8091"
+      - "8091:8091"  # 映射到容器内的 8091 端口
       - "7091:7091"
-    environment:
-      SEATA_PORT: 8091
-      STORE_MODE: db
-      SERVER_NODE: 1
-      SEATA_CONFIG_NAME: file:/seata-server/resources/file.conf
-      logging.file.path: /root/logs/seata
     volumes:
-      - ./seata/resources:/seata-server/resources
+      - ./seata/config/file.conf:/seata-server/resources/file.conf
+      - ./seata/config/registry.conf:/seata-server/resources/registry.conf
     networks:
       - cloud-network
     depends_on:
       - mysql
-      - nacos
-    restart: always
-
+      - db-init
+#    restart: always
 
 volumes:
   mysql_data:

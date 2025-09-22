@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 等待MySQL服务启动完成
-until mysql -h mysql -u root -proot123 -e "SELECT 1"; do
+until mysql -h mysql -u root -proot123 -e "SELECT 1" &> /dev/null; do
   echo "MySQL is unavailable - sleeping"
   sleep 5
 done
@@ -42,26 +42,33 @@ fi
 ############################################
 # 初始化 Seata 数据库
 ############################################
+echo "Creating seata database..."
+mysql -h mysql -u root -proot123 -e "CREATE DATABASE IF NOT EXISTS seata DEFAULT CHARACTER SET utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+
 if mysql -h mysql -u root -proot123 -e "USE seata; SHOW TABLES LIKE 'global_table';" | grep -q "global_table"; then
   echo "Seata database already initialized, skipping initialization..."
 else
-  echo "Creating seata database..."
-  mysql -h mysql -u root -proot123 -e "CREATE DATABASE IF NOT EXISTS seata DEFAULT CHARACTER SET utf8mb4 COLLATE=utf8mb4_unicode_ci;"
-
-  echo "Downloading Seata MySQL schema..."
+  echo "Initializing Seata database..."
   SEATA_VERSION=${SEATA_VERSION:-2.x}
-  SEATA_SQL_URL="https://proxy.pipers.cn/https://raw.githubusercontent.com/apache/incubator-seata/${SEATA_VERSION}/script/server/db/mysql.sql"
-
-  curl -o /tmp/seata-mysql.sql "$SEATA_SQL_URL"
-  if [ $? -ne 0 ]; then
-    echo "Failed to download Seata SQL file, using local file instead..."
-    LOCAL_SQL_FILE="/project-init-scripts/seata-mysql.sql"
-    [ -f "$LOCAL_SQL_FILE" ] && cp "$LOCAL_SQL_FILE" /tmp/seata-mysql.sql || { echo "Local Seata SQL file not found, exiting..."; exit 1; }
+  
+  # 首先尝试从本地文件初始化
+  LOCAL_SQL_FILE="/project-init-scripts/seata-mysql.sql"
+  if [ -f "$LOCAL_SQL_FILE" ]; then
+    echo "Using local Seata SQL file..."
+    mysql -h mysql -u root -proot123 seata < "$LOCAL_SQL_FILE"
+    [ $? -eq 0 ] && echo "Local Seata SQL file executed successfully" || { echo "Error executing local Seata SQL file, exiting..."; exit 1; }
+  else
+    echo "Local Seata SQL file not found, trying to download..."
+    SEATA_SQL_URL="https://proxy.pipers.cn/https://raw.githubusercontent.com/apache/incubator-seata/${SEATA_VERSION}/script/server/db/mysql.sql"
+    curl -o /tmp/seata-mysql.sql "$SEATA_SQL_URL"
+    if [ $? -ne 0 ]; then
+      echo "Failed to download Seata SQL file, exiting..."
+      exit 1
+    fi
+    mysql -h mysql -u root -proot123 seata < /tmp/seata-mysql.sql
+    [ $? -ne 0 ] && { echo "Error executing Seata SQL file, exiting..."; exit 1; }
+    echo "Seata SQL file executed successfully"
   fi
-
-  mysql -h mysql -u root -proot123 seata < /tmp/seata-mysql.sql
-  [ $? -ne 0 ] && { echo "Error executing Seata SQL file, exiting..."; exit 1; }
-  echo "Seata SQL file executed successfully"
 fi
 
 ############################################
@@ -91,6 +98,10 @@ mysql -h mysql -u root -proot123 -e "FLUSH PRIVILEGES;"
 echo "Creating user 'seata' and granting privileges..."
 mysql -h mysql -u root -proot123 -e "CREATE USER IF NOT EXISTS 'seata'@'%' IDENTIFIED BY 'seata';"
 mysql -h mysql -u root -proot123 -e "GRANT ALL PRIVILEGES ON seata.* TO 'seata'@'%';"
+mysql -h mysql -u root -proot123 -e "FLUSH PRIVILEGES;"
+
+echo "Granting cloud_user access to seata database..."
+mysql -h mysql -u root -proot123 -e "GRANT SELECT, INSERT, UPDATE, DELETE ON seata.* TO 'cloud_user'@'%';"
 mysql -h mysql -u root -proot123 -e "FLUSH PRIVILEGES;"
 
 echo "Database initialization completed!"

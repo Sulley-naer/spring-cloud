@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:9.4
+    container_name: mysql-db-debug
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: seata
+      MYSQL_USER: seata
+      MYSQL_PASSWORD: seata
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data_debug:/var/lib/mysql
+      - ../inits/db/seata-mysql.sql:/docker-entrypoint-initdb.d/seata-mysql.sql
+    networks:
+      - seata-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  seata:
+    image: seataio/seata-server:2.0.0
+    container_name: seata-server-debug
+    ports:
+      - "8092:8091"
+      - "7092:7091"
+    environment:
+      - STORE_MODE=db
+      - SEATA_PORT=8091
+    volumes:
+      - ./seata-config/file.conf:/seata-server/resources/file.conf
+      - ./seata-config/registry.conf:/seata-server/resources/registry.conf
+    networks:
+      - seata-network
+    depends_on:
+      - mysql
+    restart: always
+
+volumes:
+  mysql_data_debug:
+    driver: local
+
+networks:
+  seata-network:
+    driver: bridge
