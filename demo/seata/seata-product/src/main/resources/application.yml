@@ -10,6 +10,7 @@ spring:
     name: seata-product-service
   profiles:
     active: ${nacos.namespace}
+    include: seata
 
   cloud:
     nacos:

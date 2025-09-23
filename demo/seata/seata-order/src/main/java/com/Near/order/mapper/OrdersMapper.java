@@ -1,4 +1,4 @@
-package com.Near.order.mapper;
+package com.near.order.mapper;
 
 import orders.Orders;
 import org.apache.ibatis.annotations.*;

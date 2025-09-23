@@ -1,6 +1,6 @@
-package com.Near.order.controller;
+package com.near.order.controller;
 
-import com.Near.order.services.OrderService;
+import com.near.order.services.OrderService;
 import jakarta.annotation.Resource;
 import orders.Orders;
 import org.springframework.web.bind.annotation.*;

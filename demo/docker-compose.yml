@@ -25,7 +25,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root123
       NACOS_VERSION: master   # 默认 master 对应 github 分支的名称
-      SEATA_VERSION: 2.x      # 默认 2.x 分支 对应 github 分支的名称
+      SEATA_VERSION: 2.1      # 默认 2.x 分支 对应 github 分支的名称
     volumes:
       - ./inits/script/init-db.sh:/init-db.sh      # 改脚本名更通用
       - ./inits/db:/project-init-scripts           # 里面可以放 nacos-mysql.sql / seata-mysql.sql
@@ -93,7 +93,7 @@ services:
     restart: always
 
   seata:
-    image: seataio/seata-server:2.0.0
+    image: apache/seata-server:2.1.0
     container_name: seata-server
     ports:
       - "8091:8091"  # 映射到容器内的 8091 端口

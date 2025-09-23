@@ -1,7 +1,7 @@
-package com.Near.order.services.impl;
+package com.near.order.services.impl;
 
-import com.Near.order.mapper.OrdersMapper;
-import com.Near.order.services.OrderService;
+import com.near.order.mapper.OrdersMapper;
+import com.near.order.services.OrderService;
 import jakarta.annotation.Resource;
 import orders.Orders;
 import org.springframework.stereotype.Service;
