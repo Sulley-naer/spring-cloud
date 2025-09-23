@@ -1,9 +1,11 @@
-package com.near.order.services;
+package com.Near.order.services;
 
 import orders.Orders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface OrderService {
     Orders findById(Long id);
 

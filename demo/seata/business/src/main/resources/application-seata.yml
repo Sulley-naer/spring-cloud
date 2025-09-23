@@ -1,3 +1,4 @@
+# Seata 配置
 seata:
   enabled: true
   application-id: ${spring.application.name}

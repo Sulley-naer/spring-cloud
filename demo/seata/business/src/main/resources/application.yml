@@ -10,8 +10,9 @@ spring:
     name: seata-business-service
   profiles:
     active: ${nacos.namespace} # 激活的环境
-    include: feign
-
+    include:
+      - feign
+      - seata
   cloud:
     nacos:
       config:
@@ -31,10 +32,3 @@ spring:
       - nacos:common.properties?group=DEFAULT_GROUP
       - nacos:${spring.application.name}.properties?group=${spring.application.name}
       - optional:classpath:seata.yml
-
-# Seata 配置
-seata:
-  enabled: true
-  application-id: ${spring.application.name}
-  tx-service-group: my_tx_group
-  enable-auto-data-source-proxy: true

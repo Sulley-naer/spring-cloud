@@ -2,6 +2,7 @@
 <project version="4">
   <component name="DataSourcePerFileMappings">
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/ca3397c4-bb1f-4c31-98a8-081c40ae478c/console.sql" value="ca3397c4-bb1f-4c31-98a8-081c40ae478c" />
+    <file url="file://$PROJECT_DIR$/demo/inits/db/demo.sql" value="ce4429e9-e0e2-46b3-aad6-b92f19865226" />
     <file url="file://$PROJECT_DIR$/demo/services/service-order/src/main/java/com/Near/order/mapper/OrdersMapper.java" value="ce4429e9-e0e2-46b3-aad6-b92f19865226" />
   </component>
 </project>

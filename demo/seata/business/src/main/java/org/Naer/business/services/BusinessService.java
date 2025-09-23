@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import orders.Orders;
 import org.Naer.business.feign.OrderFeignClient;
 import org.Naer.business.feign.ProductFeignClient;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ public class BusinessService {
     private OrderFeignClient orderService;
 
     @Transactional
+    @GlobalTransactional
     public Orders createOrder(@NotNull Orders order) {
         // 1. 先根据商品ID获取商品信息，检查库存
         Product product = productService.getProductById(order.getProductId());
