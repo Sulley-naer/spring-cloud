@@ -2,7 +2,7 @@ version: '1.0'
 
 services:
   mysql:
-    image: mysql:9.4
+    image: mysql:${MYSQL_VERSION}
     container_name: mysql-db
     restart: always
     environment:
@@ -21,11 +21,11 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   db-init:
-    image: mysql:9.4   # 还是用 MySQL 镜像跑初始化脚本
+    image: mysql:${MYSQL_VERSION}   # 还是用 MySQL 镜像跑初始化脚本
     environment:
       MYSQL_ROOT_PASSWORD: root123
-      NACOS_VERSION: master   # 默认 master 对应 github 分支的名称
-      SEATA_VERSION: 2.1      # 默认 2.x 分支 对应 github 分支的名称
+      NACOS_VERSION: ${NACOS_VERSION}   # 默认 master 对应 github 分支的名称
+      SEATA_VERSION: ${SEATA_VERSION}      # 默认 2.x 分支 对应 github 分支的名称
     volumes:
       - ./inits/script/init-db.sh:/init-db.sh      # 改脚本名更通用
       - ./inits/db:/project-init-scripts           # 里面可以放 nacos-mysql.sql / seata-mysql.sql
@@ -37,7 +37,7 @@ services:
 
 
   redis:
-    image: redis:7-alpine
+    image: redis:${REDIS_VERSION}
     container_name: redis-cache
     restart: always
     ports:
@@ -49,7 +49,7 @@ services:
       - cloud-network
 
   nacos:
-    image: nacos/nacos-server:latest
+    image: nacos/nacos-server:${NACOS_VERSION}
     container_name: nacos-server
     environment:
       MODE: standalone
@@ -93,7 +93,7 @@ services:
     restart: always
 
   seata:
-    image: apache/seata-server:2.1.0
+    image: apache/seata-server:${SEATA_VERSION}
     container_name: seata-server
     ports:
       - "8091:8091"  # 映射到容器内的 8091 端口

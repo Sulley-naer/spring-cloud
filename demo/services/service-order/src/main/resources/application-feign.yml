@@ -26,7 +26,7 @@ spring:
             # retryer: feign.Retryer.Default
     sentinel:
       transport:
-        dashboard: localhost:8888
+        dashboard: localhost:8888,ip2:8888
       eager: true # 项目重启时连接而非首次请求
       web-context-unify: false # 分割资源上下文
 # sentinel

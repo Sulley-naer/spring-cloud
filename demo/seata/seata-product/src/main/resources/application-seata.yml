@@ -7,7 +7,7 @@ seata:
     vgroup-mapping:
       my_tx_group: default
     grouplist:
-      default: 127.0.0.1:8091
+      default: 127.0.0.1:8091,ip2:8091 # 集群模式 异常自动切换 通常 nacos 配置
   config:
     type: file
   registry:
