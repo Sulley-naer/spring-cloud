@@ -39,8 +39,8 @@ docker-compose ps
 - **用户名**: cloud_user
 - **密码**: cloud_pass
 - **数据库**:
-  - order_service (订单服务)
-  - product_service (产品服务)
+    - order_service (订单服务)
+    - product_service (产品服务)
 
 #### Redis
 
@@ -54,6 +54,15 @@ docker-compose ps
 - **控制台地址**: http://localhost:8848/nacos
 - **用户名**: nacos
 - **密码**: nacos
+- **数据存储**: 使用MySQL数据库持久化
+
+#### seata 数据中心
+
+- **控制台端口**: 7091
+- **gRPC端口**: 8091
+- **控制台地址**: http://localhost:7091/
+- **用户名**: seata
+- **密码**: seata
 - **数据存储**: 使用MySQL数据库持久化
 
 ### 数据持久化
